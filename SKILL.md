@@ -14,7 +14,7 @@ Two config files live alongside this skill:
 - **`local.md`** — personal settings (GitHub username, board name). Read this at the start of any session. Not tracked in git.
 - **`config.json`** — cached board metadata (field IDs, option IDs) so lookups happen once, not on every command. Not tracked in git.
 
-Read both config files at the start of any operation. If a board isn't cached in config.json, run `cache-board` first.
+Read both config files at the start of any operation. If either file is missing, tell the user and run `init` first.
 
 ## Board Resolution
 
