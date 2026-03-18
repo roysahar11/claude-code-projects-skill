@@ -50,28 +50,11 @@ A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill that manag
 
    Or if you already have a `~/.claude/skills/projects` folder, back it up first.
 
-2. **Create your local config** from the examples:
-
-   ```bash
-   cd ~/.claude/skills/projects
-   cp local.example.md local.md
-   cp config.example.json config.json
-   ```
-
-3. **Edit `local.md`** with your GitHub username and preferred board name:
-
-   ```markdown
-   # Local Configuration
-
-   GitHub Username: your-github-username
-   Board Name: My Task Board
-   ```
-
-4. **Initialize your board** — tell Claude Code:
+2. **Initialize your board** — tell Claude Code:
 
    > `/projects init`
 
-   This creates the GitHub Projects board with Importance, Urgency, and Project fields, then caches the field IDs in `config.json`.
+   Claude will ask for your GitHub username and preferred board name, save them to `local.md`, create the GitHub Projects board with Importance, Urgency, and Project fields, and cache the field IDs in `config.json`.
 
 ### Per-project setup
 
