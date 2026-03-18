@@ -30,31 +30,7 @@ A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill that manag
 
 ## Installation
 
-### Prerequisites
-
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed
-- [GitHub CLI (`gh`)](https://cli.github.com/) installed and authenticated
-- A GitHub account
-
-### Setup
-
-1. **Clone this repo** into your Claude Code skills directory:
-
-   ```bash
-   # Clone the repo somewhere on your machine
-   git clone https://github.com/roysahar11/claude-code-projects-skill.git ~/dev/claude-code-projects-skill
-
-   # Symlink it into your Claude Code skills folder
-   ln -s ~/dev/claude-code-projects-skill ~/.claude/skills/projects
-   ```
-
-   Or if you already have a `~/.claude/skills/projects` folder, back it up first.
-
-2. **Initialize your board** — tell Claude Code:
-
-   > `/projects init`
-
-   Claude will ask for your GitHub username and preferred board name, save them to `local.md`, create the GitHub Projects board with Importance, Urgency, and Project fields, and cache the field IDs in `config.json`.
+See **[SETUP.md](SETUP.md)** for the full guide. **Quick start:** clone the repo, symlink it into `~/.claude/skills/projects`, then tell Claude Code `/projects init`.
 
 ### Per-project setup
 

@@ -36,20 +36,7 @@ When adding tasks, use the Project tag from the project's CLAUDE.md — agents d
 
 ### init
 
-One-time setup. Walks the user through local config, board creation, and caching.
-
-**Step 1 — Local config.** If `local.md` doesn't exist, create it by copying `local.example.md`. Ask the user for their GitHub username and preferred board name, then write the values.
-
-**Step 2 — Create the board and custom fields:**
-
-```bash
-gh project create --owner @me --title "<BOARD_NAME from local.md>" --format json
-gh project field-create <NUM> --owner @me --name "Importance" --data-type "SINGLE_SELECT" --single-select-options "Important,Not Important"
-gh project field-create <NUM> --owner @me --name "Urgency" --data-type "SINGLE_SELECT" --single-select-options "Urgent,Not Urgent"
-gh project field-create <NUM> --owner @me --name "Project" --data-type "SINGLE_SELECT" --single-select-options "General"
-```
-
-**Step 3 — Cache.** Run cache-board to populate config.json.
+One-time setup. Read `SETUP.md` (in the skill directory) and follow its steps to walk the user through local config, board creation, and caching.
 
 ### cache-board
 
