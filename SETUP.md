@@ -6,6 +6,7 @@ One-time setup for the GitHub Projects skill. Follow these steps to create your 
 
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed
 - [GitHub CLI (`gh`)](https://cli.github.com/) installed and authenticated
+- [`jq`](https://jqlang.github.io/jq/) installed (used for filtering board data)
 - A GitHub account
 
 ## Step 1 — Install the skill
