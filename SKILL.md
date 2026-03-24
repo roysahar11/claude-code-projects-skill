@@ -124,17 +124,47 @@ Note: `--owner @me` doesn't work for link — use the GitHub username from `loca
 
 ### add-project
 
-Add a new option to the Project field. The GraphQL mutation replaces all options, so include every existing option name alongside the new one to avoid deleting them.
+Add a new option to the Project field. **Critical**: the GraphQL mutation regenerates ALL option IDs, which unlinks every item's Project value. You MUST reassign all items afterward.
 
 Steps:
-1. Fetch current option names from the live API: `gh project field-list <NUM> --owner @me --format json`
-2. Run `updateProjectV2Field` with all existing names + the new one (each option needs `name`, `color`, and `description`):
+
+**1. Snapshot current item→project assignments:**
+
+```bash
+gh project item-list <NUM> --owner @me --format json -L 500
+```
+
+Parse and save a mapping of `item_id → project_option_name` for every item that has a Project value set. This is the restore list.
+
+**2. Fetch current option names from the live API:**
+
+```bash
+gh project field-list <NUM> --owner @me --format json
+```
+
+Extract all existing Project field option names, colors, and descriptions.
+
+**3. Run the mutation with ALL existing options + the new one:**
 
 ```bash
 gh api graphql -f query='mutation { updateProjectV2Field(input: { fieldId: "<FIELD_ID>", singleSelectOptions: [{name: "Existing1", description: "", color: GRAY}, {name: "New Project", description: "", color: BLUE}] }) { projectV2Field { ... on ProjectV2SingleSelectField { options { id name } } } } }'
 ```
 
-3. Re-cache: all option IDs change on every update, so run cache-board and update config.json with the new IDs. Items retain their tags as long as the option names stay the same.
+**4. Re-cache board to get new option IDs:**
+
+Run cache-board and update config.json. Build a `project_name → new_option_id` mapping from the response.
+
+**5. Reassign all items from the snapshot:**
+
+For each item in the restore list, look up the new option ID by name and reassign:
+
+```bash
+gh project item-edit --id <ITEM_ID> --field-id <PROJECT_FIELD_ID> --project-id <PROJECT_ID> --single-select-option-id <NEW_OPTION_ID>
+```
+
+This is O(n) API calls. Announce progress to the user (e.g., "Reassigning 15 items...").
+
+**6. Verify:** Spot-check a few items to confirm their Project field is restored.
 
 Note: `link-repo` and `add-project` are separate concerns — link-repo connects a repo to the board, add-project creates a tag for grouping tasks.
 
